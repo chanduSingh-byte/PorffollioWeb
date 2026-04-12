@@ -184,7 +184,7 @@ function Navbar({ dark, toggleDark, activeSection, scrollPct }) {
           </button>
           <button onClick={() => scrollTo("contact")} className="hire-btn"
             style={{ padding: "7px 13px", background: "var(--ac)", color: "#000", fontFamily: "var(--fd)", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer", letterSpacing: ".4px", transition: "all .22s", whiteSpace: "nowrap", flexShrink: 0 }}>
-            Hire Me.. ↗
+            Hire Me↗
           </button>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}
             style={{ width: 34, height: 34, borderRadius: 9, border: "1px solid var(--bd2)", background: "var(--sf)", display: "none", alignItems: "center", justifyContent: "center", cursor: "pointer", flexDirection: "column", gap: 4, padding: 9, flexShrink: 0 }}>
@@ -444,23 +444,31 @@ function Projects() {
 function Contact() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", msg: "" });
-const submit = async () => {
-  if (!form.name || !form.email || !form.msg) return;
+  const [loading, setLoading] = useState(false);
+// const [sent, setSent] = useState(false);
 
-  try {
-    await fetch("https://script.google.com/macros/s/AKfycbxfiwhPgCSMNFaCH4rFkRub5Ygqiku1gL3_JWnGVSzGxyZc109q4M1HI6olQ2CUA7Nr/exec", {
-      method: "POST",
-      mode: "no-cors",   // 🔥 IMPORTANT
-      body: JSON.stringify(form),
-    });
 
-    setSent(true); // direct success
+  
+  const submit = async () => {
+    if (!form.name || !form.email || !form.msg) return;
 
-  } catch (err) {
-    console.error(err);
-    alert("Error!");
-  }
-};
+    setLoading(true); // start loading
+
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbxfiwhPgCSMNFaCH4rFkRub5Ygqiku1gL3_JWnGVSzGxyZc109q4M1HI6olQ2CUA7Nr/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(form),
+      });
+
+      setSent(true); // success
+    } catch (err) {
+      console.error(err);
+      alert("Error!");
+    } finally {
+      setLoading(false); // stop loading
+    }
+  };
   const inp = {
     width: "100%", padding: "13px 16px",
     background: "var(--sf)", border: "1px solid var(--bd)",
@@ -480,14 +488,34 @@ const submit = async () => {
           <div style={{ padding: 36, background: "rgba(0,245,160,.05)", border: "1px solid rgba(0,245,160,.2)", borderRadius: 22, animation: "fIn .5s ease" }}>
             <div style={{ fontSize: 36, marginBottom: 12 }}>✅</div>
             <div style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: 19, color: "var(--ac)", marginBottom: 7 }}>Message sent!</div>
-            <div style={{ color: "var(--mu)", fontSize: 13.5 }}>I'll get back to you soon.</div>
+            <div style={{ color: "var(--mu)", fontSize: 13.5 }}>I'll get back to you soon & Plese Check Your Email Id.</div>
           </div>
         ) : (
           <div>
             <input type="text" placeholder="Your Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inp} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
             <input type="email" placeholder="your@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={inp} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
             <textarea placeholder="Tell me about your project..." value={form.msg} onChange={(e) => setForm({ ...form, msg: e.target.value })} rows={5} style={{ ...inp, resize: "vertical" }} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
-            <button onClick={submit} style={{ width: "100%", padding: 14, background: "var(--ac)", color: "#000", fontFamily: "var(--fd)", fontWeight: 700, fontSize: "clamp(13px,1.5vw,14.5px)", border: "none", borderRadius: 11, cursor: "pointer", letterSpacing: ".5px", transition: "all .25s", marginTop: 4 }}>Send Message →</button>
+            <button
+              onClick={submit}
+              disabled={loading || sent}
+              style={{
+                width: "100%",
+                padding: 14,
+                background: loading ? "#ccc" : "var(--ac)",
+                color: "#000",
+                fontFamily: "var(--fd)",
+                fontWeight: 700,
+                fontSize: "clamp(13px,1.5vw,14.5px)",
+                border: "none",
+                borderRadius: 11,
+                cursor: loading ? "not-allowed" : "pointer",
+                letterSpacing: ".5px",
+                transition: "all .25s",
+                marginTop: 4
+              }}
+            >
+              {loading ? "Sending..." : sent ? "Sent ✅" : "Send Message →"}
+            </button>
           </div>
         )}
 
