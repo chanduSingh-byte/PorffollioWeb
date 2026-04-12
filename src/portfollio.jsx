@@ -448,7 +448,7 @@ const submit = async () => {
   if (!form.name || !form.email || !form.msg) return;
 
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbwGPfnkPCzU57I5N9OHTJilax7kwY0kEiYPAAdhQUFpB2drZk3GEsYkNbTgcgWft1Jy/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycbxfiwhPgCSMNFaCH4rFkRub5Ygqiku1gL3_JWnGVSzGxyZc109q4M1HI6olQ2CUA7Nr/exec", {
       method: "POST",
       mode: "no-cors",   // 🔥 IMPORTANT
       body: JSON.stringify(form),
