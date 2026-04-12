@@ -35,7 +35,7 @@ const SOCIALS = [
   { label: "GitHub", href: "https://github.com/" },
   { label: "LinkedIn", href: "https://linkedin.com/" },
   { label: "Twitter", href: "https://twitter.com/" },
-  { label: "Email", href: "mailto:chandan@example.com" },
+  { label: "Email", href: "itsupport@scherdel.in" },
 ];
 
 const PHOTO_URL = "/me.jpeg";
@@ -184,7 +184,7 @@ function Navbar({ dark, toggleDark, activeSection, scrollPct }) {
           </button>
           <button onClick={() => scrollTo("contact")} className="hire-btn"
             style={{ padding: "7px 13px", background: "var(--ac)", color: "#000", fontFamily: "var(--fd)", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer", letterSpacing: ".4px", transition: "all .22s", whiteSpace: "nowrap", flexShrink: 0 }}>
-            Hire Me ↗
+            Hire Me.. ↗
           </button>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}
             style={{ width: 34, height: 34, borderRadius: 9, border: "1px solid var(--bd2)", background: "var(--sf)", display: "none", alignItems: "center", justifyContent: "center", cursor: "pointer", flexDirection: "column", gap: 4, padding: 9, flexShrink: 0 }}>
@@ -346,7 +346,7 @@ function About() {
           <div style={{ width: "100%", aspectRatio: "1", borderRadius: 22, background: "linear-gradient(135deg,rgba(0,245,160,.07),rgba(0,180,255,.07))", border: "1px solid var(--bd)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 26px,rgba(0,245,160,.024) 26px,rgba(0,245,160,.024) 27px),repeating-linear-gradient(90deg,transparent,transparent 26px,rgba(0,245,160,.024) 26px,rgba(0,245,160,.024) 27px)" }} />
             <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: 28 }}>
-              <Avatar size={110} />
+              <Avatar size={170} />
               <div style={{ fontFamily: "var(--fd)", fontWeight: 800, fontSize: 19, background: "linear-gradient(135deg,var(--ac),var(--ac2))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: 3 }}>Chandan Singh</div>
               <div style={{ fontFamily: "var(--fm)", fontSize: 10, color: "var(--mu)", letterSpacing: ".13em", marginBottom: 3 }}>IT SUPPORT DEV</div>
               <div style={{ fontFamily: "var(--fm)", fontSize: 9.5, color: "rgba(0,245,160,.5)", marginBottom: 18 }}>📍 JAIPUR, INDIA</div>

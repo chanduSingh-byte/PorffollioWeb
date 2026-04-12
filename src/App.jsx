@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Portfolio from "./portfollio";
-
-// Pages
-
 
 function App() {
   return (
     <BrowserRouter>
-     <Portfolio/>
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+      </Routes>
     </BrowserRouter>
   );
 }
