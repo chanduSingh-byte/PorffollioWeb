@@ -44,6 +44,14 @@ const PHOTO_URL = "/me.jpeg";
 const pricingData = {
   categories: [
     {
+      id: "portfolio", label: "Portfolio", icon: "◎", color: "#ec4899", darkColor: "#f472b6",
+      tiers: [
+        { name: "Basic", price: 5000, deliverables: "3-5 sections, gallery, contact", days: 2 },
+        { name: "Standard", price: 12000, deliverables: "Animated, blog, custom domain", days: 5 },
+        { name: "Premium", price: 22000, deliverables: "3D elements, case studies, CMS", days: 12 },
+      ],
+    },
+    {
       id: "landing", label: "Landing Page", icon: "◈", color: "#6366f1", darkColor: "#818cf8",
       tiers: [
         { name: "Basic", price: 8000, deliverables: "1-3 sections, static, no CMS", days: 3 },
@@ -73,14 +81,6 @@ const pricingData = {
         { name: "Basic", price: 50000, deliverables: "Auth, CRUD, simple dashboard", days: 21 },
         { name: "Standard", price: 120000, deliverables: "React + Node, DB, REST API", days: 45 },
         { name: "Premium", price: 250000, deliverables: "Microservices, real-time, scalable infra", days: 90 },
-      ],
-    },
-    {
-      id: "portfolio", label: "Portfolio", icon: "◎", color: "#ec4899", darkColor: "#f472b6",
-      tiers: [
-        { name: "Basic", price: 5000, deliverables: "3-5 sections, gallery, contact", days: 2 },
-        { name: "Standard", price: 12000, deliverables: "Animated, blog, custom domain", days: 5 },
-        { name: "Premium", price: 22000, deliverables: "3D elements, case studies, CMS", days: 12 },
       ],
     },
   ],
@@ -540,7 +540,7 @@ function PricingBar({ value, max, color }) {
 
 // ─── WEB PRICING CHART SECTION ───────────────────────────────────────────────
 function WebPricingChart() {
-  const [activeCategory, setActiveCategory] = useState("landing");
+  const [activeCategory, setActiveCategory] = useState("portfolio");
   const [selectedTier, setSelectedTier] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [view, setView] = useState("chart");
