@@ -455,7 +455,7 @@ function Contact() {
     setLoading(true); // start loading
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbxfiwhPgCSMNFaCH4rFkRub5Ygqiku1gL3_JWnGVSzGxyZc109q4M1HI6olQ2CUA7Nr/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbwysaJHQCRxDx_OMVuLY4B6JKmS9hmN75WO2--KxiUC2VhHyrkH6lFv80qoI7gKqBF3/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify(form),
