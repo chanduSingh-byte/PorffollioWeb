@@ -443,7 +443,7 @@ function Projects() {
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Contact() {
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", msg: "" });
+  const [form, setForm] = useState({ name: "", email: "", msg: "" , phone:""});
   const [loading, setLoading] = useState(false);
 // const [sent, setSent] = useState(false);
 
@@ -494,6 +494,7 @@ function Contact() {
           <div>
             <input type="text" placeholder="Your Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inp} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
             <input type="email" placeholder="your@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={inp} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
+            <input type="number" placeholder="Enter Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} style={inp} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
             <textarea placeholder="Tell me about your project..." value={form.msg} onChange={(e) => setForm({ ...form, msg: e.target.value })} rows={5} style={{ ...inp, resize: "vertical" }} onFocus={(e) => e.target.style.borderColor = "rgba(0,245,160,.4)"} onBlur={(e) => e.target.style.borderColor = "var(--bd)"} />
             <button
               onClick={submit}
