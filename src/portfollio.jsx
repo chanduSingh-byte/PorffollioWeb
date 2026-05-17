@@ -128,10 +128,42 @@ function Avatar({ size = 120 }) {
 // ─── NAVBAR ───────────────────────────────────────────────────────────────────
 function Navbar({ dark, toggleDark, activeSection, scrollPct }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [time, setTime] = useState("");
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
   };
+
+
+
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      const currentTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+      setTime(currentTime);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <div style={{
@@ -151,6 +183,14 @@ function Navbar({ dark, toggleDark, activeSection, scrollPct }) {
           <div style={{ display: "flex", alignItems: "center", gap: 5, padding: "3px 8px", background: "rgba(0,245,160,.07)", border: "1px solid rgba(0,245,160,.18)", borderRadius: 999, fontFamily: "var(--fm)", fontSize: 9, color: "var(--ac)", whiteSpace: "nowrap" }}>
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--ac)", animation: "pulse 1.6s ease-in-out infinite", flexShrink: 0, display: "inline-block" }} />
             Open to work
+          </div>
+
+
+
+          <div>
+            <div style={{ textAlign: "center", marginLeft: "10px" }}>
+              <h2>{time}</h2>
+            </div>
           </div>
         </div>
 
@@ -380,25 +420,25 @@ function ModernProjectCard() {
   return (
     // Background container (Sirf preview ke liye, aap is div ko hata sakte hain)
     <div className="flex justify-center items-center p-10 bg-[#030712]">
-      
+
       {/* 1. Main Card Wrapper - group class is important for hover effects */}
       <div className="relative group w-full max-w-[400px]">
-        
+
         {/* 2. Animated Hover Glow (Neon Border Effect) */}
         <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-100 transition duration-500 group-hover:duration-200"></div>
-        
+
         {/* 3. Actual Card */}
         <div className="relative bg-[#0f172a] rounded-2xl p-6 border border-slate-800 flex flex-col gap-5 h-full transform transition-all duration-300">
-          
+
           {/* Project Image Container with Zoom */}
           <div className="overflow-hidden rounded-xl aspect-[16/9] relative bg-slate-800">
             {/* Color Overlay that fades out on hover */}
             <div className="absolute inset-0 bg-cyan-900/40 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-            
-            <img 
+
+            <img
               // Aap yahan apne project ka actual screenshot laga sakte hain
-              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop" 
-              alt="Project Thumbnail" 
+              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
+              alt="Project Thumbnail"
               className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
             />
           </div>
@@ -416,8 +456,8 @@ function ModernProjectCard() {
           {/* Tech Stack Pills (Badges) */}
           <div className="flex flex-wrap gap-2 mt-auto">
             {['React', 'Tailwind CSS', 'Python', 'PowerShell'].map((tech) => (
-              <span 
-                key={tech} 
+              <span
+                key={tech}
                 className="px-3 py-1 text-xs font-mono font-medium text-cyan-300 bg-cyan-950/30 border border-cyan-800/50 rounded-full"
               >
                 {tech}
@@ -428,7 +468,7 @@ function ModernProjectCard() {
           {/* Action Links */}
           <div className="flex gap-3 mt-2 pt-5 border-t border-slate-800/50">
             <button className="flex-1 flex justify-center items-center gap-2 py-2.5 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
               Code
             </button>
             <button className="flex-1 py-2.5 text-sm font-bold text-[#030712] bg-cyan-400 hover:bg-cyan-300 rounded-xl shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:-translate-y-0.5 transition-all">
@@ -443,10 +483,10 @@ function ModernProjectCard() {
 }
 
 
- function LegendaryPortfolio() {
+function LegendaryPortfolio() {
   return (
     <div className="min-h-screen bg-[#030712] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
-      
+
       {/* Ambient Background Glow */}
       <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-cyan-600/20 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/20 blur-[150px] rounded-full pointer-events-none"></div>
@@ -459,7 +499,7 @@ function ModernProjectCard() {
       </nav>
 
       <main className="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
-        
+
         {/* HERO SECTION */}
         <section className="flex flex-col lg:flex-row items-center justify-between gap-16 mb-32">
           <div className="lg:w-1/2 space-y-8">
@@ -467,7 +507,7 @@ function ModernProjectCard() {
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
               System Online & Ready
             </div>
-            
+
             <h1 className="text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[1.1]">
               Code. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
@@ -475,10 +515,10 @@ function ModernProjectCard() {
               </span> <br />
               Elevate.
             </h1>
-            
+
             <p className="text-lg text-slate-400 max-w-xl font-light leading-relaxed">
-              Bridging the gap between robust IT infrastructure and stunning frontend experiences. 
-              With nearly 3 years of hands-on experience, I build centralized systems and modern UIs 
+              Bridging the gap between robust IT infrastructure and stunning frontend experiences.
+              With nearly 3 years of hands-on experience, I build centralized systems and modern UIs
               that drive real-world performance.
             </p>
 
@@ -509,7 +549,7 @@ function ModernProjectCard() {
                 <p className="pl-6">focus: <span className="text-green-400">'Frontend Dev & IT Systems'</span>,</p>
                 <p className="pl-6">latestProject: <span className="text-green-400">'Centralized Maintenance Module'</span></p>
                 <p>{'}'};</p>
-                <br/>
+                <br />
                 <p><span className="text-cyan-400">developer</span>.<span className="text-blue-400">execute</span>();</p>
                 <p className="text-slate-500 animate-pulse">{'>'} Deploying logic... 100%</p>
               </div>
@@ -519,7 +559,7 @@ function ModernProjectCard() {
 
         {/* MODERN BENTO GRID */}
         <section id="stack" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
+
           {/* Bento Box 1: Impact Stats */}
           <div className="md:col-span-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all cursor-default relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
@@ -532,7 +572,7 @@ function ModernProjectCard() {
           {/* Bento Box 2: Experience Number */}
           <div className="bg-gradient-to-br from-purple-900/40 to-blue-900/40 border border-white/10 rounded-3xl p-8 flex flex-col justify-center items-center text-center hover:scale-[1.02] transition-transform">
             <h2 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">3+</h2>
-            <p className="text-slate-400 font-medium">Years Dev & IT <br/> Experience</p>
+            <p className="text-slate-400 font-medium">Years Dev & IT <br /> Experience</p>
           </div>
 
           {/* Bento Box 3: Tech Arsenal */}
@@ -566,7 +606,7 @@ function ModernProjectCard() {
 const PortfolioHero = () => {
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 relative overflow-hidden font-sans">
-      
+
       {/* Animated Background Blobs - Gives a modern, dynamic feel */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
       <div className="absolute bottom-10 right-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse delay-700"></div>
@@ -579,14 +619,14 @@ const PortfolioHero = () => {
           <div className="inline-block px-5 py-2 rounded-full bg-white/5 border border-white/10 text-cyan-300 text-sm font-semibold tracking-wider mb-2 hover:bg-white/10 transition-colors cursor-default shadow-inner">
             🚀 Welcome to my digital workspace
           </div>
-          
+
           <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Hi, I craft <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient-x">
               Seamless Solutions
             </span>
           </h1>
-          
+
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-light">
             Merging robust system logic with stunning frontend designs. With a couple of years of hands-on experience in the tech world, I build interfaces that don't just look good, but perform flawlessly under the hood.
           </p>
@@ -606,10 +646,10 @@ const PortfolioHero = () => {
         <div className="w-64 h-64 md:w-80 md:h-80 relative animate-[bounce_4s_infinite]">
           {/* Glowing ring around image */}
           <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-purple-500 rounded-[2rem] rotate-6 group-hover:rotate-12 transition-transform duration-500 blur-lg opacity-60"></div>
-          
+
           <img
             // Replace with your own professional/coder portrait
-            src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=800&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=800&auto=format&fit=crop"
             alt="Coder Workspace"
             className="relative z-10 w-full h-full object-cover rounded-[2rem] border-4 border-white/20 shadow-2xl hover:scale-105 transition-transform duration-500 grayscale hover:grayscale-0"
           />
@@ -691,12 +731,12 @@ function Projects() {
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Contact() {
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", msg: "" , phone:""});
+  const [form, setForm] = useState({ name: "", email: "", msg: "", phone: "" });
   const [loading, setLoading] = useState(false);
-// const [sent, setSent] = useState(false);
+  // const [sent, setSent] = useState(false);
 
 
-  
+
   const submit = async () => {
     if (!form.name || !form.email || !form.msg) return;
 
@@ -970,7 +1010,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrollPct, setScrollPct] = useState(0);
 
-  const SECS = ["home", "about", "skills", "projects", "contact", "pricing","PortfolioHero"];
+  const SECS = ["home", "about", "skills", "projects", "contact", "pricing", "PortfolioHero"];
 
   useEffect(() => {
     const onScroll = () => {
@@ -1063,9 +1103,9 @@ export default function Portfolio() {
 
       <Navbar dark={dark} toggleDark={() => setDark((d) => !d)} activeSection={activeSection} scrollPct={scrollPct} />
       <Hero />
-      <PortfolioHero/>
-      <LegendaryPortfolio/>
-      <ModernProjectCard/>
+      {/* <PortfolioHero/> */}
+      {/* <LegendaryPortfolio/> */}
+      {/* <ModernProjectCard/> */}
       <About />
       <Skills />
       <Projects />
